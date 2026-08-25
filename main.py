@@ -10,13 +10,15 @@ from config import MODEL, TOGGLE_HOTKEY
 OLLAMA_URL = "http://localhost:11434/api/generate"
 
 PROMPT_TEMPLATE = """Explain this in the fewest words possible. No intro, no labels, no restarting the input, just the meaning,
-- if it's a word: give its meaning in 3-6 words.
+- if it's a word: give its meaning in fewest words.
 - if it's a sentence: give the fist in one short line.
 - if it's code: say what it does in one short phrase.
-
+- if it's any other language: translate it into English.
 input: {anstext}
 Answer:
 """
+
+
 
 active = False
 last_clipboard = ""
@@ -32,7 +34,7 @@ def notify(title, message):
 def ask_ollama(text: str):
     prompt = PROMPT_TEMPLATE.format(anstext=text[:2000])
     try:
-        resp = requests.post(
+        resp = requests.post( 
             OLLAMA_URL,
             json={
                 "model": MODEL,
