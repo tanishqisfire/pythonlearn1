@@ -9,15 +9,28 @@ from config import MODEL, TOGGLE_HOTKEY
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 
-PROMPT_TEMPLATE = """Explain this in the fewest words possible. No intro, no labels, no restarting the input, just the meaning,
-- if it's a word: give its meaning in fewest words.
-- if it's a sentence: give the fist in one short line.
-- if it's code: say what it does in one short phrase.
-- if it's any other language: translate it into English.
-input: {anstext}
-Answer:
-"""
+PROMPT_TEMPLATE = """Translate the French input into natural English. Translate the sentence as a whole — do not summarize, interpret, or explain its meaning. Output ONLY the English translation, nothing else.
 
+Watch for reflexive verbs (se plaire, se lever, s'appeler, etc.) — translate them as their actual English meaning, not word-by-word.
+
+Examples:
+input: hier
+output: yesterday
+
+input: aujourd'hui
+output: today
+
+input: Tu te plais ici.
+output: You like it here.
+
+input: Elle s'appelle Marie.
+output: Her name is Marie.
+
+input: Il se lève tôt.
+output: He gets up early.
+
+input: {anstext}
+output:"""
 
 
 active = False
